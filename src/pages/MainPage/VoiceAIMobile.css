@@ -1,0 +1,336 @@
+/* 
+  VoiceAIMobile.css
+  聊天界面样式 - 现代化设计
+*/
+
+:root {
+  /* 圆角 */
+  --bubble-radius: 18px;
+  --bubble-radius-sm: 12px;
+  
+  /* 间距 */
+  --bubble-spacing: 16px;
+  --bubble-padding: 12px 16px;
+  
+  /* 动画 */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+.voice-ai-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color var(--transition-normal), 
+              color var(--transition-normal);
+}
+
+.voice-ai-navbar {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 16px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.content-area {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 100px; /* 为底部输入框留出空间 */
+}
+
+/* 基础消息卡片样式 */
+.voice-card {
+  max-width: 85%;
+  border-radius: var(--bubble-radius);
+  padding: var(--bubble-padding);
+  position: relative;
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+/* 用户消息 */
+.user-request-card {
+  align-self: flex-start;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-top-left-radius: var(--bubble-radius-sm);
+  border-bottom-right-radius: var(--bubble-radius);
+  border-bottom-left-radius: var(--bubble-radius);
+  margin-left: 16px;
+  position: relative;
+}
+
+.user-request-card::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 16px solid var(--color-primary-light);
+  border-left: 16px solid transparent;
+}
+
+/* AI回复消息 */
+.user-reply-card,
+.result-card {
+  align-self: flex-end;
+  background-color: var(--surface);
+  color: var(--text);
+  border-top-right-radius: var(--bubble-radius-sm);
+  border-top-left-radius: var(--bubble-radius);
+  border-bottom-left-radius: var(--bubble-radius);
+  margin-right: 16px;
+  position: relative;
+  border: 1px solid var(--border);
+}
+
+.user-reply-card::after,
+.result-card::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 16px solid var(--surface);
+  border-right: 16px solid transparent;
+}
+
+/* 确认卡片 */
+.confirm-card {
+  align-self: flex-start;
+  background-color: var(--color-info-light);
+  color: var(--color-info-dark);
+  border-radius: var(--bubble-radius);
+  border-top-left-radius: 4px;
+  margin-left: 16px;
+  position: relative;
+  border: 1px solid var(--color-info);
+}
+
+/* 消息头部 */
+.voice-card .adm-card-header {
+  padding: 0;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+}
+
+/* 消息内容 */
+.user-text,
+.confirm-text,
+.result-text {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* 确认提示 */
+.confirm-hint {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--color-info);
+  border-radius: 0 4px 4px 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  text-align: left;
+  animation: pulse 2s infinite;
+}
+
+/* JSON 结果 */
+.json-result {
+  margin: 8px 0 0 0;
+  padding: 10px;
+  background-color: var(--light-background);
+  border-radius: 8px;
+  font-family: 'SF Mono', 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-height: 300px;
+  border: 1px solid var(--border);
+}
+
+/* 底部输入区域 */
+.voice-input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 响应式调整 */
+@media (min-width: 768px) {
+  .voice-ai-container {
+    max-width: 768px;
+    margin: 0 auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  
+  .content-area {
+    padding: 20px 40px 120px;
+  }
+  
+  .voice-card {
+    max-width: 70%;
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.9; }
+}
+
+.text-result {
+  line-height: var(--line-height-normal);
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-10) var(--spacing-5);
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: var(--color-primary);
+}
+
+.empty-text {
+  margin-top: var(--spacing-4);
+}
+
+.status-indicator {
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--surface);
+  text-align: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.status {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.status.listening {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.status.processing {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.status.executing {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.status.speaking {
+  background-color: var(--color-info);
+  color: white;
+}
+
+.status.waiting {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.status.idle {
+  padding: var(--spacing-2);
+  color: var(--text-secondary);
+}
+
+.control-area {
+  padding: var(--spacing-4);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.reset-button {
+  margin-top: var(--spacing-3);
+}
+
+.demo-button {
+  margin-top: var(--spacing-3);
+}
+
+.footer {
+  padding: var(--spacing-2) 0;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.classic-mode-button {
+  position: absolute; 
+  top: var(--spacing-3); 
+  right: var(--spacing-3);
+}
+
+/* 为移动端优化 */
+@media (max-width: 576px) {
+  .content-area {
+    padding: var(--spacing-2);
+  }
+  
+  .control-area {
+    padding: var(--spacing-3);
+  }
+}
+
+/* 按钮动画 */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.adm-button-loading,
+.status.listening,
+.status.processing,
+.status.executing {
+  animation: pulse 1s infinite;
+} 

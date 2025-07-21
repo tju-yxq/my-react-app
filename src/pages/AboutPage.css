@@ -1,0 +1,243 @@
+/*
+  AboutPage.css - 修正与美化版
+  - 修复了布局、间距和对齐问题
+  - 增强了视觉层次和美感
+  - 确保主题系统完美运行
+*/
+
+/* 1. 全局和主题变量 (与您之前的文件保持一致) */
+:root {
+    --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+    --c-primary: #319795;
+    --c-secondary: #6B46C1;
+    --c-background: #F7FAFC;
+    --c-surface: #FFFFFF;
+    --c-text-primary: #1A202C;
+    --c-text-secondary: #4A5568;
+    --c-border: #E2E8F0;
+    --c-highlight-bg: rgba(49, 151, 149, 0.1);
+    --c-card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --c-card-hover-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --c-primary: #4FD1C5;
+    --c-secondary: #9F7AEA;
+    --c-background: #1A202C;
+    --c-surface: #2D3748;
+    --c-text-primary: #F7FAFC;
+    --c-text-secondary: #A0AEC0;
+    --c-border: rgba(255, 255, 255, 0.15);
+    --c-highlight-bg: rgba(79, 209, 197, 0.1);
+    --c-card-shadow: 0 4px 8px -1px rgba(0, 0, 0, 0.3);
+    --c-card-hover-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* 2. 基础布局和容器 */
+.about-page {
+    background-color: var(--c-background);
+    color: var(--c-text-primary);
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.about-main-content {
+    /* 这是解决 section 之间间距问题的关键 */
+    display: flex;
+    flex-direction: column;
+    gap: 6rem; /* 为每个 section 之间提供统一的大间距 */
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* 3. 头部 (Hero Section) */
+.about-hero {
+    padding: 6rem 1.5rem;
+    text-align: center;
+    background-color: var(--c-surface);
+    border-bottom: 1px solid var(--c-border);
+    position: relative;
+    overflow: hidden;
+}
+.about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 10% 20%, var(--c-highlight-bg) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--c-highlight-bg) 0%, transparent 40%);
+    opacity: 0.7;
+    animation: pulse 12s infinite alternate ease-in-out;
+}
+@keyframes pulse {
+    from { transform: scale(1); opacity: 0.6; }
+    to { transform: scale(1.15); opacity: 0.8; }
+}
+.about-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    position: relative;
+}
+.about-hero .subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: var(--c-text-secondary);
+    max-width: 60ch;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 4. 通用区块头 (Section Header) */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem; /* 为标题和内容之间提供足够间距 */
+}
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--c-primary), var(--c-secondary));
+}
+.section-header .subtitle {
+    font-size: 1.125rem;
+    color: var(--c-text-secondary);
+    max-width: 65ch;
+    margin: 2rem auto 0;
+}
+
+/* 5. 网格布局 */
+.grid {
+    display: grid;
+    gap: 2.5rem; /* 统一网格内卡片间距 */
+}
+.grid-cols-1 { grid-template-columns: 1fr; }
+@media (min-width: 768px) {
+    .md\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .md\\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) {
+    .lg\\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* 6. 通用卡片样式 */
+.vision-card, .info-card, .feature-card, .tech-card, .cta-card {
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--c-card-shadow);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.vision-card:hover, .info-card:hover, .feature-card:hover, .tech-card:hover, .cta-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--c-card-hover-shadow);
+    border-color: var(--c-primary);
+}
+
+/* 7. 特定卡片样式 */
+
+/* 愿景卡片 */
+.vision-card {
+    padding: 2.5rem 3rem;
+    text-align: center;
+}
+.vision-card h2 { font-size: 1.75rem; }
+.vision-card p {
+    color: var(--c-text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 70ch;
+    margin: 1.5rem auto 0;
+}
+.vision-card strong { color: var(--c-primary); font-weight: 600; }
+
+/* 信息卡片 (对于用户/开发者) */
+.info-card {
+    padding: 2.5rem;
+}
+.info-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.info-card p { color: var(--c-text-secondary); }
+.info-card .flow-diagram {
+    margin-top: auto; /* 将其推到底部 */
+    padding: 1rem;
+    background-color: var(--c-bg);
+    border-radius: 0.75rem;
+    text-align: center;
+}
+.info-card .flow-title { font-size: 0.8rem; font-weight: 500; color: var(--c-text-secondary); margin-bottom: 0.5rem; }
+.info-card .flow-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.9rem; }
+.info-card .flow-steps svg { color: var(--c-primary); }
+.info-card .feature-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.info-card .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--c-text-secondary);
+}
+.info-card .feature-list svg { color: var(--c-primary); flex-shrink: 0; }
+
+/* 特性卡片 */
+.feature-card { text-align: center; }
+.feature-card h4 { font-size: 1.2rem; margin: 1rem 0 0.5rem; }
+.feature-card p { font-size: 0.9rem; color: var(--c-text-secondary); }
+
+/* 技术栈卡片 */
+.tech-card h3 { font-size: 1.25rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--c-border); }
+.tech-card ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.tech-card li { display: flex; align-items: center; gap: 0.75rem; color: var(--c-text-secondary); }
+.tech-card svg { color: var(--c-primary); flex-shrink: 0; }
+
+/* CTA 卡片 (加入我们) */
+.cta-card {
+    text-align: center;
+    text-decoration: none;
+    color: var(--c-text-primary);
+}
+.cta-card h4 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+.cta-card p { font-size: 0.95rem; color: var(--c-text-secondary); }
+
+/* 通用图标样式 */
+.icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: var(--c-highlight-bg);
+    color: var(--c-primary);
+    transition: all 0.3s var(--ease-out);
+}
+*:hover > .icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+    color: white;
+}

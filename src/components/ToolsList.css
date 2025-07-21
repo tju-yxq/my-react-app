@@ -1,0 +1,226 @@
+/* 文件路径: src/components/ToolsList.css */
+/* 描述: 这是适配已修复JS逻辑的现代化样式表。 */
+@import "../styles/tokens.css";
+.modern-tools-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: transparent;
+}
+
+/* 搜索栏 */
+.tools-search-bar {
+    position: relative;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.tools-search-bar .search-icon {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.tools-search-bar input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border-radius: var(--radius-lg, 8px);
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color-tertiary, #f0f2f5);
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.tools-search-bar input:focus {
+    background-color: var(--surface);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* 列表滚动区域 */
+.tools-list-scroll-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 1rem 1rem;
+    scrollbar-gutter: stable;
+    -webkit-overflow-scrolling: touch; /* 移动端平滑滚动 */
+    position: relative;
+}
+
+/* 下拉刷新与加载提示 */
+.pull-indicator, .feedback-indicator {
+    text-align: center;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+}
+
+.feedback-indicator {
+    position: static; /* 覆盖绝对定位 */
+}
+
+.loading-spinner {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.feedback-indicator.empty {
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+/* 工具卡片 */
+.tool-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--surface);
+    border-radius: var(--radius-lg, 8px);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.tool-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--primary-color);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: bottom;
+}
+
+.tool-card:hover::before {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.tool-card-content {
+    flex-grow: 1;
+}
+
+.tool-card-name {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tool-card-description {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.tool-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.tool-type-badge, .tool-tag-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+}
+
+.tool-type-badge.http {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+}
+
+.tool-type-badge.mcp {
+    background-color: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+}
+
+.tool-tag-badge {
+    background-color: var(--background-color-tertiary);
+    color: var(--text-secondary);
+}
+
+.tool-card-action-icon {
+    margin-left: 1rem;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    transition: transform 0.2s ease;
+}
+
+.tool-card:hover .tool-card-action-icon {
+    transform: translateX(5px);
+    color: var(--primary-color);
+}
+
+/* 加载更多按钮 */
+.load-more-button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border: none;
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.load-more-button:hover {
+    background-color: rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* 错误提示 */
+.error-message {
+    background-color: rgba(var(--error-color-rgb), 0.1);
+    color: var(--error-color);
+    padding: 0.75rem 1rem;
+    margin: 0 1rem 1rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+}
+.retry-btn {
+    background: none;
+    border: 1px solid currentColor;
+    color: currentColor;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+}
+.retry-btn:hover {
+    opacity: 1;
+}
