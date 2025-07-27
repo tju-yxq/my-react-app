@@ -30,12 +30,21 @@ export const AuthProvider = ({ children }) => {
 
   // 清除认证状态
   const clearAuth = useCallback(() => {
+    // 清除所有认证相关的 localStorage 数据
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('user');
+    localStorage.removeItem('authData');
+
+    // 重置所有状态
     setToken(null);
     setUser(null);
     setRole('user');
     setIsAuthenticated(false);
+    setLoading(false);
+    setError(null);
+
+    // 清除 API 客户端的认证头
     apiClient.setAuthToken(null);
   }, []);
 

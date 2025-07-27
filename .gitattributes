@@ -1,0 +1,12 @@
+# 自动处理文本文件的行尾符
+* text=auto
+
+# 强制特定文件使用LF（如代码文件）
+*.js text eol=lf
+*.css text eol=lf
+*.json text eol=lf
+
+# 二进制文件不处理行尾符
+*.png binary
+*.jpg binary
+*.svg binary
